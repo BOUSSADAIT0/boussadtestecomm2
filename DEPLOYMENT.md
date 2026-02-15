@@ -51,14 +51,46 @@ Le fichier `client/vercel.json` est configuré pour :
 
 ---
 
-## ⚠️ Problème actuel
+## ⚠️ Résolution de l'erreur 404: DEPLOYMENT_NOT_FOUND
 
-L'erreur 404 vient probablement du fait que :
-1. Vercel ne trouve pas le bon dossier de build
-2. Ou le Root Directory n'est pas configuré sur `client`
+Si vous voyez l'erreur **"404: NOT_FOUND"** avec le code **"DEPLOYMENT_NOT_FOUND"**, voici comment la résoudre :
 
-**Solution :**
-1. Allez dans les paramètres du projet sur Vercel
-2. Dans "General" → "Root Directory", mettez : `client`
-3. Redéployez
+### Solution étape par étape :
+
+1. **Connectez-vous à votre dashboard Vercel**
+   - Allez sur [vercel.com](https://vercel.com)
+   - Sélectionnez votre projet
+
+2. **Configurez le Root Directory** :
+   - Allez dans **Settings** → **General**
+   - Trouvez la section **"Root Directory"**
+   - Cliquez sur **"Edit"**
+   - Entrez : `client`
+   - Cliquez sur **"Save"**
+
+3. **Vérifiez les paramètres de Build** :
+   - Allez dans **Settings** → **General** → **Build & Development Settings**
+   - Vérifiez que :
+     - **Framework Preset** : `Vite` (ou laissez vide, Vercel le détectera)
+     - **Build Command** : `npm run build`
+     - **Output Directory** : `dist`
+     - **Install Command** : `npm install`
+
+4. **Redéployez le projet** :
+   - Allez dans l'onglet **"Deployments"**
+   - Cliquez sur les **"..."** à côté du dernier déploiement
+   - Sélectionnez **"Redeploy"**
+   - OU poussez un nouveau commit vers votre repository
+
+5. **Si le problème persiste** :
+   - Vérifiez que le fichier `client/vercel.json` existe et contient la bonne configuration
+   - Vérifiez que `client/package.json` contient le script `build`
+   - Vérifiez les logs de build dans Vercel pour voir s'il y a des erreurs
+
+### Causes courantes de l'erreur 404 :
+
+- ❌ Root Directory non configuré ou configuré sur `.` au lieu de `client`
+- ❌ Le dossier `client` n'existe pas dans le repository
+- ❌ Le build échoue silencieusement
+- ❌ Le déploiement a été supprimé ou a expiré
 
